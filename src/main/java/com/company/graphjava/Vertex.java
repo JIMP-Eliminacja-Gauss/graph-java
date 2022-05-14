@@ -1,16 +1,18 @@
 package com.company.graphjava;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Vertex {
+public class Vertex implements Iterable<Edge> {
     private ArrayList<Edge> edges = new ArrayList<Edge>();
 
     public int getSize() {
         return this.edges.size();
     }
 
-    public ArrayList<Edge> getEdges() {
-        return this.edges;
+    @Override
+    public Iterator<Edge> iterator() {
+        return this.edges.iterator();
     }
 
     public void addEdge(Edge edge) {
