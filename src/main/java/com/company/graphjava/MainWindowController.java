@@ -35,18 +35,19 @@ public class MainWindowController {
 
         // sprawia że nie można wykonywać żadnych akcji przed zamknięciem się okna ustawień
         stage.initModality(APPLICATION_MODAL);
+        Main.settings.settingsStage = stage;
         stage.show();
     }
 
     public void onSaveButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save the generated graph");
-        File graphFile = fileChooser.showSaveDialog(Main.getMainStage());
+        File graphFile = fileChooser.showSaveDialog(Main.mainWindow.getMainStage());
     }
 
     public void onLoadButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load a graph from file");
-        File graphFile = fileChooser.showOpenDialog(Main.getMainStage());
+        File graphFile = fileChooser.showOpenDialog(Main.mainWindow.getMainStage());
     }
 }
