@@ -1,11 +1,13 @@
 package com.company.graphjava;
 
+
 public class Graph {
     private int rows;
     private int columns;
     private double fromX;
     private double fromY;
     private double probability;
+    private Vertex [] adjacencyList;
 
     public Graph(int rows, int columns, Double fromX, Double fromY, double probability) {
         if (rows < 0 || columns < 0 || probability < 0 || probability > 1 ||
@@ -20,6 +22,7 @@ public class Graph {
         this.fromX = fromX == null ? 1 : fromX;
         this.fromY = fromY == null ? 10 : fromY;
         this.probability = probability;
+        adjacencyList = new Vertex[rows * columns];
     }
 
     public int getRows() {
