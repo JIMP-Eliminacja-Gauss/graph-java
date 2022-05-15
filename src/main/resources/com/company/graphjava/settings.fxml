@@ -9,20 +9,22 @@
 <AnchorPane prefHeight="150.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.graphjava.SettingsWindowController">
    <children>
       <Text layoutX="20.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ROWS" />
-      <TextField layoutX="76.0" layoutY="8.0" prefHeight="25.0" prefWidth="75.0" />
+      <TextField fx:id="rowsTextField" layoutX="76.0" layoutY="8.0" prefHeight="25.0" prefWidth="75.0" />
       <Text layoutX="216.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COLUMNS" />
-      <TextField layoutX="288.0" layoutY="8.0" prefHeight="25.0" prefWidth="75.0" />
+      <TextField fx:id="columnsTextField" layoutX="288.0" layoutY="8.0" prefHeight="25.0" prefWidth="75.0" />
       <Text layoutX="412.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROBABILITY" />
       <Text layoutX="124.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDGE WEIGHT" />
-      <TextField layoutX="495.0" layoutY="8.0" prefHeight="25.0" prefWidth="75.0" promptText="from 0 to 1" />
-      <TextField layoutX="215.0" layoutY="45.0" prefHeight="25.0" prefWidth="75.0" promptText="FROM">
+      <TextField fx:id="probabilityTextField" layoutX="495.0" layoutY="8.0" prefHeight="25.0" prefWidth="75.0" promptText="from 0 to 1" />
+      <TextField fx:id="edgeWeightRangeFromTextField" layoutX="215.0" layoutY="45.0" prefHeight="25.0" prefWidth="75.0" promptText="FROM">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </TextField>
-      <TextField layoutX="320.0" layoutY="45.0" prefHeight="25.0" prefWidth="75.0" promptText="TO" />
-      <Button layoutX="200.0" layoutY="100.0" mnemonicParsing="false" prefWidth="50.0" text="Apply" />
-      <Button layoutX="270.0" layoutY="100.0" mnemonicParsing="false" prefWidth="60.0" text="Cancel" />
-      <Button layoutX="350.0" layoutY="100.0" mnemonicParsing="false" text="OK" />
+      <TextField fx:id="edgeWeightRangeToTextField" layoutX="320.0" layoutY="45.0" prefHeight="25.0" prefWidth="75.0" promptText="TO" />
+      <Button fx:id="applyButton" layoutX="200.0" layoutY="87.0" mnemonicParsing="false" onAction="#onApplyButtonClicked" prefWidth="50.0" text="Apply" />
+      <Button fx:id="cancelButton" layoutX="270.0" layoutY="87.0" mnemonicParsing="false" onAction="#onCancelButtonClicked" prefWidth="60.0" text="Cancel" />
+      <Button fx:id="okButton" layoutX="351.0" layoutY="87.0" mnemonicParsing="false" onAction="#onOkButtonClicked" text="OK" />
+      <Button fx:id="currentSettingsButton" layoutX="208.0" layoutY="123.0" mnemonicParsing="false" onAction="#onCurrentSettingsButtonClicked" text="Current Settings" />
+      <Button fx:id="clearButton" layoutX="325.0" layoutY="123.0" mnemonicParsing="false" onAction="#onClearButtonClicked" text="Clear" />
    </children>
 </AnchorPane>
