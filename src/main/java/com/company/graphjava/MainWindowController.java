@@ -1,13 +1,11 @@
 package com.company.graphjava;
 
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +18,7 @@ public class MainWindowController {
     public Button settingsButton;
     public Button saveButton;
     public Button loadButton;
+    public Button generateButton;
 
     public void onExitButtonClicked() {
         Platform.exit();
@@ -35,7 +34,7 @@ public class MainWindowController {
 
         // sprawia że nie można wykonywać żadnych akcji przed zamknięciem się okna ustawień
         stage.initModality(APPLICATION_MODAL);
-        Main.settings.settingsStage = stage;
+        Main.getSettings.settingsStage = stage;
         stage.show();
     }
 
@@ -49,5 +48,16 @@ public class MainWindowController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load a graph from file");
         File graphFile = fileChooser.showOpenDialog(Main.mainWindow.getMainStage());
+    }
+
+    public void onGenerateButtonClicked() {
+        // TODO: jezeli ustawienia sie zmienily, dodac indykator
+        if (Main.getSettings().rows == null)
+            return;
+
+        Graph graph = new Graph();
+        Generator generator = new Generator();
+        generator.generateGridGraph(graph);
+        System.out.println("Wygenerowano graf");
     }
 }

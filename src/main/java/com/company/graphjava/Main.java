@@ -1,12 +1,20 @@
 package com.company.graphjava;
 
 public class Main {
-    public static MainWindow mainWindow;
-    public static Settings settings;
+    static MainWindow mainWindow;
+    static Settings getSettings;
+
+    public static MainWindow getMainWindow() {
+        return mainWindow;
+    }
+
+    public static Settings getSettings() {
+        return getSettings;
+    }
 
     public static void main(String[] args) {
         mainWindow = new MainWindow();
-        settings = new Settings();
+        getSettings = new Settings();
         mainWindow.run();
     }
 }

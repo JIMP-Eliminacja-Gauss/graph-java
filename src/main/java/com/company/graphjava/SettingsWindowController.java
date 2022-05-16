@@ -1,19 +1,10 @@
 package com.company.graphjava;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
-import static javafx.stage.Modality.APPLICATION_MODAL;
 
 public class SettingsWindowController {
 
@@ -38,7 +29,6 @@ public class SettingsWindowController {
     private boolean changesApplied = false;
 
 
-
     public void onApplyButtonClicked(ActionEvent event) {
         rows = readIntFromTextField(rowsTextField);
         columns = readIntFromTextField(columnsTextField);
@@ -55,7 +45,7 @@ public class SettingsWindowController {
     }
 
     public void onCancelButtonClicked(ActionEvent event) {
-        Main.settings.settingsStage.close();
+        Main.getSettings.settingsStage.close();
     }
 
     public void onOkButtonClicked(ActionEvent event) {
@@ -63,12 +53,12 @@ public class SettingsWindowController {
             onApplyButtonClicked(null);
 
         if (rows != null && columns != null && probability != null && edgeWeightRangeFrom != null && edgeWeightRangeTo != null) {
-            Main.settings.rows = rows;
-            Main.settings.columns = columns;
-            Main.settings.probability = probability;
-            Main.settings.edgeWeightRangeFrom = edgeWeightRangeFrom;
-            Main.settings.edgeWeightRangeTo = edgeWeightRangeTo;
-            Main.settings.settingsStage.close();
+            Main.getSettings.rows = rows;
+            Main.getSettings.columns = columns;
+            Main.getSettings.probability = probability;
+            Main.getSettings.edgeWeightRangeFrom = edgeWeightRangeFrom;
+            Main.getSettings.edgeWeightRangeTo = edgeWeightRangeTo;
+            Main.getSettings.settingsStage.close();
         } else {
             showErrorDialog("all parameters should be given");
         }
@@ -85,16 +75,16 @@ public class SettingsWindowController {
     }
 
     public void onCurrentSettingsButtonClicked(ActionEvent event) {
-        if (Main.settings.rows != null)
-            rowsTextField.setText(String.valueOf(Main.settings.rows));
-        if (Main.settings.columns != null)
-            columnsTextField.setText(String.valueOf(Main.settings.columns));
-        if (Main.settings.probability != null)
-            probabilityTextField.setText(String.valueOf(Main.settings.probability));
-        if (Main.settings.edgeWeightRangeFrom != null)
-            edgeWeightRangeFromTextField.setText(String.valueOf(Main.settings.edgeWeightRangeFrom));
-        if (Main.settings.edgeWeightRangeTo != null)
-            edgeWeightRangeToTextField.setText(String.valueOf(Main.settings.edgeWeightRangeTo));
+        if (Main.getSettings.rows != null)
+            rowsTextField.setText(String.valueOf(Main.getSettings.rows));
+        if (Main.getSettings.columns != null)
+            columnsTextField.setText(String.valueOf(Main.getSettings.columns));
+        if (Main.getSettings.probability != null)
+            probabilityTextField.setText(String.valueOf(Main.getSettings.probability));
+        if (Main.getSettings.edgeWeightRangeFrom != null)
+            edgeWeightRangeFromTextField.setText(String.valueOf(Main.getSettings.edgeWeightRangeFrom));
+        if (Main.getSettings.edgeWeightRangeTo != null)
+            edgeWeightRangeToTextField.setText(String.valueOf(Main.getSettings.edgeWeightRangeTo));
     }
 
     private Integer readIntFromTextField (TextField tf) throws NumberFormatException {
