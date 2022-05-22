@@ -1,4 +1,4 @@
-package com.company.graphjava;
+package com.company.graphjava.graph;
 
 public class Edge {
     private final int index;
