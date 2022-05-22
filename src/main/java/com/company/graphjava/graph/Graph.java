@@ -1,13 +1,15 @@
-package com.company.graphjava;
+package com.company.graphjava.graph;
 
+
+import com.company.graphjava.Main;
 
 public class Graph {
-    private int rows;
-    private int columns;
+    private final int rows;
+    private final int columns;
     private double fromX;
     private double toY;
     private double probability;
-    private final Vertex [] adjacencyList;
+    private final Neighbour[] adjacencyList;
 
     public Graph() {
         if (Main.getSettings().getRows() < 0 && Main.getSettings().getColumns() < 0)
@@ -25,7 +27,7 @@ public class Graph {
         this.fromX = Main.getSettings().getEdgeWeightRangeFrom();
         this.toY = Main.getSettings().getEdgeWeightRangeTo();
         this.probability = Main.getSettings().getProbability();
-        adjacencyList = new Vertex[this.rows * this.columns];
+        adjacencyList = new Neighbour[this.rows * this.columns];
     }
 
     public Graph(int rows, int columns) {
@@ -34,7 +36,7 @@ public class Graph {
 
         this.rows = rows;
         this.columns = columns;
-        adjacencyList = new Vertex[rows * columns];
+        adjacencyList = new Neighbour[rows * columns];
     }
 
     public Graph(int rows, int columns, double fromX, double toY, double probability) {
@@ -46,7 +48,7 @@ public class Graph {
         this.fromX = fromX;
         this.toY = toY;
         this.probability = probability;
-        adjacencyList = new Vertex[rows * columns];
+        adjacencyList = new Neighbour[rows * columns];
     }
 
     public int getRows() {
@@ -69,40 +71,10 @@ public class Graph {
         return probability;
     }
 
-    public void setRows(int rows) {
-        if (rows < 0)
-            throw new IllegalArgumentException();
-        this.rows = rows;
-    }
-
-    public void setColumns(int columns) {
-        if (columns < 0)
-            throw new IllegalArgumentException();
-        this.columns = columns;
-    }
-
-    public void setFromX(double fromX) {
-        if (fromX < 0 || fromX > toY)
-            throw new IllegalArgumentException();
-        this.fromX = fromX;
-    }
-
-    public void setToY(double toY) {
-        if (toY < 0 || toY < fromX)
-            throw new IllegalArgumentException();
-        this.toY = toY;
-    }
-
-    public void setProbability(double probability) {
-        if (probability < 0 || probability > 1)
-            throw new IllegalArgumentException();
-        this.probability = probability;
-    }
-
     public void addToAdjacencyList(int vertexIndex, Edge edge) {
         try {
             if (adjacencyList[vertexIndex] == null)
-                adjacencyList[vertexIndex] = new Vertex();
+                adjacencyList[vertexIndex] = new Neighbour();
 
             adjacencyList[vertexIndex].addEdge(edge);
         } catch (ArrayIndexOutOfBoundsException e) {

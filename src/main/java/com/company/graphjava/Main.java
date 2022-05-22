@@ -1,5 +1,7 @@
 package com.company.graphjava;
 
+import com.company.graphjava.graph.Graph;
+
 public class Main {
     private static MainWindow mainWindow;
     private static Settings settings;

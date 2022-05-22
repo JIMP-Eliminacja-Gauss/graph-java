@@ -1,9 +1,13 @@
-package com.company.graphjava;
+package com.company.graphjava.controller;
 
+import com.company.graphjava.graph.Generator;
+import com.company.graphjava.graph.Graph;
+import com.company.graphjava.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Button;
@@ -60,12 +64,23 @@ public class MainWindowController {
 
     public void onGenerateButtonClicked() {
         // TODO: jezeli ustawienia sie zmienily, dodac indykator
-        if (Main.getSettings().getRows() == null)
+        if (Main.getSettings().getRows() == null) {
+            showErrorDialog("Graph parameters not specified! Open up settings windows and fill in the blanks.");
             return;
+        }
 
         Graph graph = new Graph();
-        Generator generator = new Generator();
+        Generator.generateGridGraph(graph);
         Main.setGraph(graph);
         System.out.println("Wygenerowano graf");
+    }
+
+    public void showErrorDialog( String text ) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        //alert.setTitle("Błąd");
+        alert.setHeaderText("No parameters passed");
+        alert.setContentText(text);
+
+        alert.showAndWait();
     }
 }

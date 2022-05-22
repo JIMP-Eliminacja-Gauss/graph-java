@@ -1,4 +1,4 @@
-package com.company.graphjava;
+package com.company.graphjava.graph;
 
 import java.util.Random;
 
@@ -17,7 +17,7 @@ public class Generator {
         graph.addToAdjacencyList(neighbourIndex, new Edge(graph, vertexIndex, weight));
     }
 
-    public void generateGridGraph(Graph graph) {
+    public static void generateGridGraph(Graph graph) {
         Random random = new Random();
         double weight;
         int vertexIndex;
