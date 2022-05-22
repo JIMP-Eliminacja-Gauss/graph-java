@@ -7,24 +7,24 @@ public class Graph {
     private double fromX;
     private double toY;
     private double probability;
-    private Vertex [] adjacencyList;
+    private final Vertex [] adjacencyList;
 
     public Graph() {
-        if (Main.getSettings().rows < 0 && Main.getSettings().columns < 0)
+        if (Main.getSettings().getRows() < 0 && Main.getSettings().getColumns() < 0)
             throw new IllegalArgumentException("Rows and columns must be positive integers");
 
-        if (Main.getSettings().probability < 0 || Main.getSettings().probability > 1)
+        if (Main.getSettings().getProbability() < 0 || Main.getSettings().getProbability() > 1)
             throw new IllegalArgumentException("Probability must be chosen from range <0; 1>");
 
-        if (Main.getSettings().edgeWeightRangeFrom < 0 || Main.getSettings().edgeWeightRangeTo < 0 ||
-            Main.getSettings().edgeWeightRangeFrom > Main.getSettings().edgeWeightRangeTo)
+        if (Main.getSettings().getEdgeWeightRangeFrom() < 0 || Main.getSettings().getEdgeWeightRangeTo() < 0 ||
+            Main.getSettings().getEdgeWeightRangeFrom() > Main.getSettings().getEdgeWeightRangeTo())
             throw new IllegalArgumentException("Edge weights cannot be negative and fromX <= toX");
 
-        this.rows = Main.getSettings().rows;
-        this.columns = Main.getSettings().columns;
-        this.fromX = Main.getSettings().edgeWeightRangeFrom;
-        this.toY = Main.getSettings().edgeWeightRangeTo;
-        this.probability = Main.getSettings().probability;
+        this.rows = Main.getSettings().getRows();
+        this.columns = Main.getSettings().getColumns();
+        this.fromX = Main.getSettings().getEdgeWeightRangeFrom();
+        this.toY = Main.getSettings().getEdgeWeightRangeTo();
+        this.probability = Main.getSettings().getProbability();
         adjacencyList = new Vertex[this.rows * this.columns];
     }
 
