@@ -3,6 +3,8 @@ package com.company.graphjava.graph;
 
 import com.company.graphjava.Main;
 
+import java.util.Iterator;
+
 public class Graph {
     private final int rows;
     private final int columns;
@@ -81,4 +83,10 @@ public class Graph {
             e.printStackTrace();
         }
     }
+
+    public Iterator<Edge> getNeigboursIterator(int vertexIndex) {
+        return adjacencyList[vertexIndex].iterator();
+    }
+
+
 }

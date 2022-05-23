@@ -1,5 +1,7 @@
 package com.company.graphjava.graph;
 
+import com.company.graphjava.Main;
+
 public class Edge {
     private final int index;
     private final double weight;
