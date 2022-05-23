@@ -35,7 +35,7 @@
                </effect>
             </Button>
 
-            <Button fx:id="generateButton" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onGenerateButtonClicked" prefHeight="40.0" prefWidth="150.0" style="-fx-shape: &quot;M 400 200 L 400 250 L 500 250 L 500 200 L 400 200&quot;; -fx-background-color: rgba(255,255,255,0.1);" text="GENERATE" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="generateButton" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onGenerateButtonClicked" prefHeight="40.0" prefWidth="150.0" stylesheets="@MainWindowInterface.css" text="GENERATE" textAlignment="CENTER" textFill="WHITE">
 
                <font>
                   <Font name="Segoe UI Black" size="14.0" />

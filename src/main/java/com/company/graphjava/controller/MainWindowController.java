@@ -1,5 +1,7 @@
 package com.company.graphjava.controller;
 
+import com.company.graphjava.MyExceptions;
+import com.company.graphjava.graph.Files;
 import com.company.graphjava.graph.Generator;
 import com.company.graphjava.graph.Graph;
 import com.company.graphjava.Main;
@@ -54,12 +56,30 @@ public class MainWindowController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save the generated graph");
         File graphFile = fileChooser.showSaveDialog(Main.getMainWindow().getMainStage());
+        try {
+            Files.fileCreate((graphFile.getPath()).toString());
+        } catch (IOException e) {
+            showErrorDialog("Cannot write graph to this file");
+        } catch (NullPointerException e) {
+            showErrorDialog("Generate or load graph before save");
+        }
     }
 
     public void onLoadButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load a graph from file");
         File graphFile = fileChooser.showOpenDialog(Main.getMainWindow().getMainStage());
+        if (graphFile == null)
+            return;
+        try {
+            Files.fileRead((graphFile.getPath()).toString());
+        } catch (IOException e) {
+            showErrorDialog("Cannot open chosen file");
+        } catch (NumberFormatException e) {
+            showErrorDialog("Bad file format");
+        } catch (MyExceptions.FileFormatException e) {
+            showErrorDialog("Bad file format, graph should be grid graph");
+        }
     }
 
     public void onGenerateButtonClicked() {
@@ -75,10 +95,10 @@ public class MainWindowController {
         System.out.println("Wygenerowano graf");
     }
 
-    public void showErrorDialog( String text ) {
+    private void showErrorDialog( String text ) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         //alert.setTitle("Błąd");
-        alert.setHeaderText("No parameters passed");
+        //alert.setHeaderText("No parameters passed");
         alert.setContentText(text);
 
         alert.showAndWait();
