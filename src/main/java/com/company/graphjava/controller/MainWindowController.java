@@ -56,12 +56,14 @@ public class MainWindowController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save the generated graph");
         File graphFile = fileChooser.showSaveDialog(Main.getMainWindow().getMainStage());
+        if (graphFile == null)
+            return;
         try {
             Files.fileCreate((graphFile.getPath()).toString());
         } catch (IOException e) {
             showErrorDialog("Cannot write graph to this file");
         } catch (NullPointerException e) {
-            showErrorDialog("Generate or load graph before save");
+            showErrorDialog("Generate or load graph before saving");
         }
     }
 

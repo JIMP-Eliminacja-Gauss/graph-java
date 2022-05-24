@@ -46,23 +46,19 @@ public class Files {
         int rows = Main.getGraph().getRows();
         int columns = Main.getGraph().getColumns();
 
-
-
         BufferedWriter file = new BufferedWriter(new FileWriter(path));
         file.write(rows + " " + columns);
         file.newLine();
 
-        Iterator<Edge> nb = Main.getGraph().getNeigboursIterator(0);
-
-
-        for (int i = 0; i < rows*columns; i++) {
-            Iterator<Edge> iterator = Main.getGraph().getNeigboursIterator(i);
-
-            for (Iterator<Edge> it = iterator; it.hasNext(); ) {
-                Edge edge = it.next();
-                file.write(edge.getIndex() + " :" + edge.getWeight() + "     ");
+        if (rows * columns != 1) {
+            for (int i = 0; i < rows * columns; i++) {
+                Iterator<Edge> iterator = Main.getGraph().getNeigboursIterator(i);
+                for (Iterator<Edge> it = iterator; it.hasNext(); ) {
+                    Edge edge = it.next();
+                    file.write(edge.getIndex() + " :" + edge.getWeight() + "     ");
+                }
+                file.newLine();
             }
-            file.newLine();
         }
         file.close();
     }
