@@ -1,9 +1,6 @@
 package com.company.graphjava;
 
-import com.company.graphjava.graph.Edge;
 import com.company.graphjava.graph.Graph;
-
-import java.util.Iterator;
 
 public class Main {
     private static MainWindow mainWindow;
