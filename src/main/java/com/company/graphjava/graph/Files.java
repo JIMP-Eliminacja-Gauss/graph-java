@@ -52,11 +52,11 @@ public class Files {
         file.write(rows + " " + columns);
         file.newLine();
 
-        Iterator<Edge> nb = Main.getGraph().getNeigboursIterator(0);
+        Iterator<Edge> nb = Main.getGraph().getNeighboursIterator(0);
 
 
         for (int i = 0; i < rows*columns; i++) {
-            Iterator<Edge> iterator = Main.getGraph().getNeigboursIterator(i);
+            Iterator<Edge> iterator = Main.getGraph().getNeighboursIterator(i);
 
             for (Iterator<Edge> it = iterator; it.hasNext(); ) {
                 Edge edge = it.next();

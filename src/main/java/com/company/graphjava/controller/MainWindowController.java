@@ -1,6 +1,7 @@
 package com.company.graphjava.controller;
 
 import com.company.graphjava.MyExceptions;
+import com.company.graphjava.graph.Algorithm;
 import com.company.graphjava.graph.Files;
 import com.company.graphjava.graph.Generator;
 import com.company.graphjava.graph.Graph;
@@ -32,6 +33,8 @@ public class MainWindowController {
     private Button loadButton;
     @FXML
     private Button generateButton;
+    @FXML
+    private Button connectivityButton;
 
 
     public void onExitButtonClicked() {
@@ -93,6 +96,11 @@ public class MainWindowController {
         Generator.generateGridGraph(graph);
         Main.setGraph(graph);
         System.out.println("Wygenerowano graf");
+    }
+
+    public void onConnectivityButtonClicked() {
+      //  Algorithm.bfs(Main.getGraph());
+
     }
 
     private void showErrorDialog( String text ) {

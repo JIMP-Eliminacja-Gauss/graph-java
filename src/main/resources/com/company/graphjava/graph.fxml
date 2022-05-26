@@ -68,7 +68,7 @@
                   <Glow />
                </effect>
             </Button>
-            <Button layoutY="240.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@MainWindowInterface.css" text="CONNECTIVITY" textFill="WHITE">
+            <Button fx:id="connectivityButton" layoutY="240.0" mnemonicParsing="false" onAction="#onConnectivityButtonClicked" prefHeight="40.0" prefWidth="150.0" stylesheets="@MainWindowInterface.css" text="CONNECTIVITY" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Black" size="14.0" />
                </font>
