@@ -53,6 +53,8 @@ public class SettingsWindowController {
         if (edgeWeightRangeFrom != null && edgeWeightRangeTo != null && edgeWeightRangeFrom > edgeWeightRangeTo) {
             edgeWeightRangeFromTextField.clear();
             edgeWeightRangeToTextField.clear();
+            edgeWeightRangeTo = null;
+            edgeWeightRangeFrom = null;
 
         }
         changesApplied = true;

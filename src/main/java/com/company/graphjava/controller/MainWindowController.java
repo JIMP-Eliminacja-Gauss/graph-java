@@ -1,6 +1,7 @@
 package com.company.graphjava.controller;
 
 import com.company.graphjava.MyExceptions;
+import com.company.graphjava.graph.Algorithm;
 import com.company.graphjava.graph.Files;
 import com.company.graphjava.graph.Generator;
 import com.company.graphjava.graph.Graph;
@@ -85,6 +86,7 @@ public class MainWindowController {
     }
 
     public void onGenerateButtonClicked() {
+
         // TODO: jezeli ustawienia sie zmienily, dodac indykator
         if (Main.getSettings().getRows() == null) {
             showErrorDialog("Graph parameters not specified! Open up settings windows and fill in the blanks.");
@@ -95,6 +97,11 @@ public class MainWindowController {
         Generator.generateGridGraph(graph);
         Main.setGraph(graph);
         System.out.println("Wygenerowano graf");
+
+        //if(Main.getGraph().getRows() * Main.getGraph().getColumns() != 1) {
+
+            Algorithm.dijkstra(0);
+        //}
     }
 
     private void showErrorDialog( String text ) {
