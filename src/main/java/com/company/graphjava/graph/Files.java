@@ -25,6 +25,11 @@ public class Files {
         while ((line = file.readLine()) != null) {
             line = line.replace(':', ' ');
             String [] edges = line.split("\\s+");
+            if (edges.length == 1) {
+                System.out.println(line);
+                currentVertexIndex++;
+                continue;
+            }
             for (int i = 0; i < edges.length; i += 2) {
                 int edgeVertexIndex = Integer.parseInt(edges[i]);
                 double edgeWeight = Double.parseDouble(edges[i+1]);
