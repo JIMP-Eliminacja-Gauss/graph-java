@@ -66,3 +66,4 @@ public class Algorithm {
             previousVertex[edgeVertexIndex] = vertexIndex;
         }
     }
+}
