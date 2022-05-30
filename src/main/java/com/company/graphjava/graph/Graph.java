@@ -82,8 +82,12 @@ public class Graph {
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
+        adjacencyList[vertexIndex].setVertexIndex(vertexIndex);
     }
 
+    public Neighbour[] getAdjacencyList() {
+        return adjacencyList;
+    }
     public Iterator<Edge> getNeigboursIterator(int vertexIndex) {
         return adjacencyList[vertexIndex].iterator();
     }
