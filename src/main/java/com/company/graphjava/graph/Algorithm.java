@@ -66,29 +66,3 @@ public class Algorithm {
             previousVertex[edgeVertexIndex] = vertexIndex;
         }
     }
-
-
-}
-/*
-    relax( Graf G, Wierzchołek u, Wierzchołek v,
-           Integer o, Integer p ) {
-        if( o[u] > o[v] + G.waga(u,v) ) {
-            o[u]= o[v] + G.waga(u,v);
-            p[u]= v;
-        }
-    }
-        aDijkstry( Graf G, Wierzchołek s ) {
-<o,p>= InicjujNS1Z( G, s );
-        SET<Wierzchołek> w();
-        PRIORITY_QUEUE<Wierzchołek> q( G.wierzchołki() );
-        // priorytet to 1/o[]
-        while( ! q.empty() ) {
-        u= q.get(); // z minimalną o
-        w.add(u);
-        for( v : G.sąsiednie(u) )
-        relax( u, v, G );
-        }
-        }
-
-
- */
