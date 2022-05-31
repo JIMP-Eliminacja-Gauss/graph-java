@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Algorithm {
-    public static void bfs(Graph graph) {
+    public static boolean bfs(Graph graph) {
         Queue<Integer> FIFO = new LinkedList<>();
         boolean [] visited = new boolean[graph.getRows() * graph.getColumns()];
         int vertexIndex;
@@ -24,9 +24,10 @@ public class Algorithm {
             }
         }
 
-        for (int i = 0; i < visited.length; i++) {
-            if (!visited[i])
-                graph.addNotConnectedVertex(i);
-        }
+        for (boolean b : visited)
+            if (!b)
+                return false;
+
+        return true;
     }
 }

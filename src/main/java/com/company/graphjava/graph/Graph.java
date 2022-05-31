@@ -3,10 +3,7 @@ package com.company.graphjava.graph;
 
 import com.company.graphjava.Main;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Graph {
     private final int rows;
@@ -15,7 +12,6 @@ public class Graph {
     private double toY;
     private double probability;
     private final Neighbour[] adjacencyList;
-    private final ArrayList<Integer> notConnectedVertices = new ArrayList<Integer>();
 
     public Graph() {
         if (Main.getSettings().getRows() < 0 && Main.getSettings().getColumns() < 0)
@@ -78,11 +74,9 @@ public class Graph {
     }
 
     public Iterator<Edge> getNeighboursIterator(int vertexIndex) {
-        return adjacencyList[vertexIndex].iterator();
-    }
+      if (adjacencyList[vertexIndex] != null) return adjacencyList[vertexIndex].iterator();
+      else return Collections.emptyIterator();
 
-    public Iterator<Integer> getNotConnectedVertices() {
-        return notConnectedVertices.iterator();
     }
 
     public void addToAdjacencyList(int vertexIndex, Edge edge) {
@@ -95,12 +89,5 @@ public class Graph {
             e.printStackTrace();
         }
     }
-
-    public void addNotConnectedVertex(int index) {
-        if (!notConnectedVertices.contains(index))
-            notConnectedVertices.add(index);
-    }
-
-
 
 }
