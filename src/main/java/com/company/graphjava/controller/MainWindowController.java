@@ -39,17 +39,7 @@ public class MainWindowController {
     }
 
     public void onSettingsButtonClicked() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("settings.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600,150);
-        Stage stage = new Stage();
-        stage.setTitle("Settings");
-        stage.setScene(scene);
-        stage.setResizable(false);
-
-        // sprawia że nie można wykonywać żadnych akcji przed zamknięciem się okna ustawień
-        stage.initModality(APPLICATION_MODAL);
-        Main.getSettings().setSettingsStage(stage);
-        stage.show();
+        new SettingsWindowController().switchToSettingsScene();
     }
 
     public void onSaveButtonClicked() {

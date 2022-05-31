@@ -3,9 +3,21 @@ package com.company.graphjava.controller;
 import com.company.graphjava.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
+
+import static javafx.stage.Modality.APPLICATION_MODAL;
 
 public class SettingsWindowController {
 
@@ -16,10 +28,6 @@ public class SettingsWindowController {
     private Button cancelButton;
     @FXML
     private Button okButton;
-    @FXML
-    private Button currentSettingsButton;
-    @FXML
-    private Button clearButton;
 
     // Pola tekstowe
     @FXML
@@ -79,7 +87,7 @@ public class SettingsWindowController {
 
         changesApplied = false;
     }
-
+/*
     public void onClearButtonClicked(ActionEvent event) {
         rowsTextField.clear();
         columnsTextField.clear();
@@ -100,17 +108,20 @@ public class SettingsWindowController {
         if (Main.getSettings().getEdgeWeightRangeTo() != null)
             edgeWeightRangeToTextField.setText(String.valueOf(Main.getSettings().getEdgeWeightRangeTo()));
     }
-
+*/
     private Integer readIntFromTextField (TextField tf) throws NumberFormatException {
         int number;
+        tf.setStyle("-fx-border-color: transparent");
         try {
             number = Integer.parseInt(tf.getText());
         } catch (NumberFormatException e) {
             tf.clear();
+            tf.setStyle("-fx-border-color: red");
             return null;
         }
         if (number <= 0) {
             tf.clear();
+            tf.setStyle("-fx-border-color: red");
             return null;
         }
         return number;
@@ -118,20 +129,25 @@ public class SettingsWindowController {
 
     private Double readDoubleFromTextField (TextField tf) throws NumberFormatException {
         double number;
+        tf.setStyle("-fx-border-color: transparent");
         try {
             number = Double.parseDouble(tf.getText());
         } catch (NumberFormatException e) {
             tf.clear();
+            tf.setStyle("-fx-border-color: red");
             return null;
         }
 
         if (tf == probabilityTextField && number > 1) {
             tf.clear();
+            tf.setStyle("-fx-border-color: red");
             return null;
         }
 
+
         if (number < 0) {
             tf.clear();
+            tf.setStyle("-fx-border-color: red");
             return null;
         }
         return number;
@@ -145,4 +161,42 @@ public class SettingsWindowController {
 
         alert.showAndWait();
     }
+
+    public void switchToSettingsScene() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("settings.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600,120);
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("settingsIcon.jpg"))));
+
+
+        stage.setTitle("Settings");
+        stage.setScene(scene);
+        stage.setResizable(false);
+
+
+        SettingsWindowController controller = fxmlLoader.getController();
+
+        // wyswietlanie aktualnych ustawien
+        if (Main.getSettings().getRows() != null) {
+            controller.rowsTextField.setText(Main.getSettings().getRows().toString());
+            controller.columnsTextField.setText(Main.getSettings().getColumns().toString());
+            controller.probabilityTextField.setText(Main.getSettings().getProbability().toString());
+            controller.edgeWeightRangeFromTextField.setText(Main.getSettings().getEdgeWeightRangeFrom().toString());
+            controller.edgeWeightRangeToTextField.setText(Main.getSettings().getEdgeWeightRangeTo().toString());
+        }
+
+
+        stage.initModality(APPLICATION_MODAL);
+        Main.getSettings().setSettingsStage(stage);
+        stage.show();
+    }
+
+    public void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER)
+            okButton.fire();
+        else if (event.getCode() == KeyCode.ESCAPE)
+            cancelButton.fire();
+    }
+
+
 }
