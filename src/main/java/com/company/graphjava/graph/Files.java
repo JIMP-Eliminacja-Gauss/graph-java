@@ -63,6 +63,7 @@ public class Files {
                     file.write(edge.getIndex() + " :" + edge.getWeight() + "     ");
                 }
                 file.newLine();
+
             }
         }
         file.close();

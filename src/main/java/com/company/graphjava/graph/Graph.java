@@ -3,7 +3,7 @@ package com.company.graphjava.graph;
 
 import com.company.graphjava.Main;
 
-import java.util.Iterator;
+import java.util.*;
 
 public class Graph {
     private final int rows;
@@ -73,6 +73,12 @@ public class Graph {
         return probability;
     }
 
+    public Iterator<Edge> getNeighboursIterator(int vertexIndex) {
+      if (adjacencyList[vertexIndex] != null) return adjacencyList[vertexIndex].iterator();
+      else return Collections.emptyIterator();
+
+    }
+
     public void addToAdjacencyList(int vertexIndex, Edge edge) {
         try {
             if (adjacencyList[vertexIndex] == null)
@@ -84,13 +90,5 @@ public class Graph {
         }
         adjacencyList[vertexIndex].setVertexIndex(vertexIndex);
     }
-
-    public Neighbour[] getAdjacencyList() {
-        return adjacencyList;
-    }
-    public Iterator<Edge> getNeigboursIterator(int vertexIndex) {
-        return adjacencyList[vertexIndex].iterator();
-    }
-
 
 }

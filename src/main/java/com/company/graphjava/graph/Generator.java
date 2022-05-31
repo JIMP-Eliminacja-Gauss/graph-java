@@ -7,7 +7,7 @@ public class Generator {
     private static boolean makeConnection(double probability) {
         Random random = new Random();
         int border = (int) (probability * Integer.MAX_VALUE);
-        int value = random.nextInt();
+        int value = random.nextInt(Integer.MAX_VALUE);
 
         return border >= value;
     }

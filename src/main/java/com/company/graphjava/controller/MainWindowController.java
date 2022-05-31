@@ -33,6 +33,8 @@ public class MainWindowController {
     private Button loadButton;
     @FXML
     private Button generateButton;
+    @FXML
+    private Button connectivityButton;
 
 
     public void onExitButtonClicked() {
@@ -102,6 +104,11 @@ public class MainWindowController {
 
             Algorithm.dijkstra(0);
         //}
+    }
+
+    public void onConnectivityButtonClicked() {
+      //  Algorithm.bfs(Main.getGraph());
+
     }
 
     private void showErrorDialog( String text ) {

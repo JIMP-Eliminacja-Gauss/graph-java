@@ -17,11 +17,11 @@ class FilesTest {
     }
     @Test
     void fileRead_GivenBadFormatFile_ThrowFileFormatException_True() throws IOException, MyExceptions.FileFormatException {
-        Assertions.assertThrows(MyExceptions.FileFormatException.class, () -> Files.fileRead("plikDoTestuNieKratka.txt"));
+        Assertions.assertThrows(MyExceptions.FileFormatException.class, () -> Files.fileRead("src/main/resources/com/company/graphjava/textfiles/plikDoTestuNieKratka.txt"));
     }
     @Test
     void fileRead_GivenBadFormatFile_NumberFormatException_True() throws IOException, MyExceptions.FileFormatException {
-        Assertions.assertThrows(NumberFormatException.class, () -> Files.fileRead("plikDoTestuZlyFormat.txt"));
+        Assertions.assertThrows(NumberFormatException.class, () -> Files.fileRead("src/main/resources/com/company/graphjava/textfiles/plikDoTestuZlyFormat.txt"));
     }
 
 

@@ -1,8 +1,11 @@
 package com.company.graphjava.graph;
 
+
 import com.company.graphjava.Main;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.PriorityQueue;
 
 public class Algorithm {
@@ -65,5 +68,30 @@ public class Algorithm {
             shortestPath[edgeVertexIndex] = shortestPath[vertexIndex] + edgeWeight;
             previousVertex[edgeVertexIndex] = vertexIndex;
         }
+      
+    public static boolean bfs(Graph graph) {
+        Queue<Integer> FIFO = new LinkedList<>();
+        boolean [] visited = new boolean[graph.getRows() * graph.getColumns()];
+        int vertexIndex;
+
+        FIFO.add(0);
+        visited[0] = true;
+        while (FIFO.size() > 0) {
+            vertexIndex = FIFO.remove();
+
+            for (Iterator<Edge> i = graph.getNeighboursIterator(vertexIndex); i.hasNext(); ) {
+                int index = i.next().getIndex();
+                if (!visited[index]) {
+                    visited[index] = true;
+                    FIFO.add(index);
+                }
+            }
+        }
+
+        for (boolean b : visited)
+            if (!b)
+                return false;
+
+        return true;
     }
 }
