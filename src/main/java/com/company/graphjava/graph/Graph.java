@@ -88,6 +88,7 @@ public class Graph {
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
+        adjacencyList[vertexIndex].setVertexIndex(vertexIndex);
     }
 
 }

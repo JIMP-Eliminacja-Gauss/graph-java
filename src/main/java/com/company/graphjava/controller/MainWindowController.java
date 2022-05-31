@@ -59,12 +59,14 @@ public class MainWindowController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save the generated graph");
         File graphFile = fileChooser.showSaveDialog(Main.getMainWindow().getMainStage());
+        if (graphFile == null)
+            return;
         try {
             Files.fileCreate((graphFile.getPath()).toString());
         } catch (IOException e) {
             showErrorDialog("Cannot write graph to this file");
         } catch (NullPointerException e) {
-            showErrorDialog("Generate or load graph before save");
+            showErrorDialog("Generate or load graph before saving");
         }
     }
 
@@ -86,6 +88,7 @@ public class MainWindowController {
     }
 
     public void onGenerateButtonClicked() {
+
         // TODO: jezeli ustawienia sie zmienily, dodac indykator
         if (Main.getSettings().getRows() == null) {
             showErrorDialog("Graph parameters not specified! Open up settings windows and fill in the blanks.");
@@ -96,6 +99,11 @@ public class MainWindowController {
         Generator.generateGridGraph(graph);
         Main.setGraph(graph);
         System.out.println("Wygenerowano graf");
+
+        //if(Main.getGraph().getRows() * Main.getGraph().getColumns() != 1) {
+
+            Algorithm.dijkstra(0);
+        //}
     }
 
     public void onConnectivityButtonClicked() {

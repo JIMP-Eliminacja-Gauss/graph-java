@@ -25,6 +25,11 @@ public class Files {
         while ((line = file.readLine()) != null) {
             line = line.replace(':', ' ');
             String [] edges = line.split("\\s+");
+            if (edges.length == 1) {
+                System.out.println(line);
+                currentVertexIndex++;
+                continue;
+            }
             for (int i = 0; i < edges.length; i += 2) {
                 int edgeVertexIndex = Integer.parseInt(edges[i]);
                 double edgeWeight = Double.parseDouble(edges[i+1]);
@@ -46,23 +51,20 @@ public class Files {
         int rows = Main.getGraph().getRows();
         int columns = Main.getGraph().getColumns();
 
-
-
         BufferedWriter file = new BufferedWriter(new FileWriter(path));
         file.write(rows + " " + columns);
         file.newLine();
 
-        Iterator<Edge> nb = Main.getGraph().getNeighboursIterator(0);
+        if (rows * columns != 1) {
+            for (int i = 0; i < rows * columns; i++) {
+                Iterator<Edge> iterator = Main.getGraph().getNeigboursIterator(i);
+                for (Iterator<Edge> it = iterator; it.hasNext(); ) {
+                    Edge edge = it.next();
+                    file.write(edge.getIndex() + " :" + edge.getWeight() + "     ");
+                }
+                file.newLine();
 
-
-        for (int i = 0; i < rows*columns; i++) {
-            Iterator<Edge> iterator = Main.getGraph().getNeighboursIterator(i);
-
-            for (Iterator<Edge> it = iterator; it.hasNext(); ) {
-                Edge edge = it.next();
-                file.write(edge.getIndex() + " :" + edge.getWeight() + "     ");
             }
-            file.newLine();
         }
         file.close();
     }
