@@ -2,15 +2,16 @@ package com.company.graphjava.controller;
 
 import com.company.graphjava.Main;
 import com.company.graphjava.graph.Edge;
+import com.company.graphjava.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 
 public class GUIMonitor {
-    private GraphicsContext grc;
-    private int canvasWidth;
-    private int canvasHeight;
+    private final GraphicsContext grc;
+    private final int canvasWidth;
+    private final int canvasHeight;
 
     public GUIMonitor(GraphicsContext grc, int canvasWidth, int canvasHeight) {
         this.grc = grc;
@@ -18,16 +19,14 @@ public class GUIMonitor {
         this.canvasHeight = canvasHeight;
     }
 
-    private double calculateColorHue(double weight) {
-        double max = Main.getGraph().maxEdgeValue();
-        double min = Main.getGraph().minEdgeValue();
+    private double calculateColorHue(double weight, double min, double max) {
         double dx = max - min;
         double hueDx = Color.GREEN.getHue() - Color.RED.getHue();
         return (max - weight)/dx * hueDx + Color.RED.getHue();
     }
 
     private void drawVertices(int rows, int columns, double squareSide, double diameter) {
-        grc.setFill(Color.WHITESMOKE);
+        grc.setFill(Color.rgb(255,255,255));
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 grc.fillOval(j * squareSide + 0.125 * squareSide, i * squareSide + 0.125 * squareSide, diameter, diameter);
@@ -36,6 +35,18 @@ public class GUIMonitor {
     }
 
     private void drawEdges(int rows, int columns, double squareSide) {
+        double maxEdgeValue;
+        double minEdgeValue;
+
+        if (Main.getSettings().getEdgeWeightRangeFrom() == null) {
+            minEdgeValue = Main.getGraph().getFromX();
+            maxEdgeValue = Main.getGraph().getToY();
+        } else {
+            minEdgeValue = Main.getGraph().minEdgeValue();
+            maxEdgeValue = Main.getGraph().maxEdgeValue();
+        }
+
+
         grc.setLineWidth(0.25 * squareSide);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -52,13 +63,16 @@ public class GUIMonitor {
 
                 }
                 if (i < rows - 1 && verticalEdge != null) {
-                    grc.setStroke(Color.hsb(calculateColorHue(verticalEdge.getWeight()),1,1,1));
+                    grc.setStroke(Color.hsb(calculateColorHue(verticalEdge.getWeight(), minEdgeValue, maxEdgeValue),
+                            1,1,1));
+
                     grc.strokeLine(j * squareSide + squareSide / 2, i * squareSide + squareSide/ 2,
                             j * squareSide + squareSide / 2, (i+1) * squareSide + squareSide/2);
                 }
 
                 if (j < columns - 1 && horizontalEdge != null) {
-                    grc.setStroke(Color.hsb(horizontalEdge.getWeight(),1,1,1));
+                    grc.setStroke(Color.hsb(calculateColorHue(horizontalEdge.getWeight(), minEdgeValue, maxEdgeValue),
+                            1,1,1));
                     grc.strokeLine(j * squareSide + squareSide/2, i * squareSide + squareSide/2,
                             (j+1) * squareSide + squareSide/2, i * squareSide + squareSide/2);
                 }
@@ -96,7 +110,7 @@ public class GUIMonitor {
 
         // tlo
         //grc.setFill(Color.CORNSILK);
-        grc.setFill(Color.DEEPSKYBLUE);
+        grc.setFill(Color.NAVY);
         grc.fillRect(0, 0, canvasWidth, canvasHeight);
         System.out.println("Squareside = " + squareSide);
         System.out.println("Max = " + Main.getGraph().maxEdgeValue());
