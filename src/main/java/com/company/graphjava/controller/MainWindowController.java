@@ -1,24 +1,20 @@
 package com.company.graphjava.controller;
 
 import com.company.graphjava.MyExceptions;
-import com.company.graphjava.graph.Algorithm;
 import com.company.graphjava.graph.Files;
 import com.company.graphjava.graph.Generator;
 import com.company.graphjava.graph.Graph;
 import com.company.graphjava.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Button;
 
 import java.io.File;
 import java.io.IOException;
-
-import static javafx.stage.Modality.APPLICATION_MODAL;
 
 
 public class MainWindowController {
@@ -35,6 +31,8 @@ public class MainWindowController {
     private Button generateButton;
     @FXML
     private Button connectivityButton;
+    @FXML
+    private Canvas canvas;
 
 
     public void onExitButtonClicked() {
@@ -78,8 +76,6 @@ public class MainWindowController {
     }
 
     public void onGenerateButtonClicked() {
-
-        // TODO: jezeli ustawienia sie zmienily, dodac indykator
         if (Main.getSettings().getRows() == null) {
             showErrorDialog("Graph parameters not specified! Open up settings windows and fill in the blanks.");
             return;
@@ -90,9 +86,13 @@ public class MainWindowController {
         Main.setGraph(graph);
         System.out.println("Wygenerowano graf");
 
+        GraphicsContext grc = canvas.getGraphicsContext2D();
+        GUIMonitor gui = new GUIMonitor(grc, 600, 600);
+        gui.drawGraph();
+
         //if(Main.getGraph().getRows() * Main.getGraph().getColumns() != 1) {
 
-            Algorithm.dijkstra(0);
+           // Algorithm.dijkstra(0);
         //}
     }
 
