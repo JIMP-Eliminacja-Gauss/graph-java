@@ -1,6 +1,7 @@
 package com.company.graphjava.graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class Neighbour implements Iterable<Edge> {

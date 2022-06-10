@@ -68,6 +68,7 @@ public class Algorithm {
             shortestPath[edgeVertexIndex] = shortestPath[vertexIndex] + edgeWeight;
             previousVertex[edgeVertexIndex] = vertexIndex;
         }
+    }
       
     public static boolean bfs(Graph graph) {
         Queue<Integer> FIFO = new LinkedList<>();

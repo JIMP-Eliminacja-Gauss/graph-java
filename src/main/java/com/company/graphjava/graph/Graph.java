@@ -79,6 +79,10 @@ public class Graph {
 
     }
 
+    public Neighbour[] getAdjacencyList() {
+        return adjacencyList;
+    }
+
     public void addToAdjacencyList(int vertexIndex, Edge edge) {
         try {
             if (adjacencyList[vertexIndex] == null)
@@ -91,4 +95,41 @@ public class Graph {
         adjacencyList[vertexIndex].setVertexIndex(vertexIndex);
     }
 
+    public double maxEdgeValue() {
+        double max = 0;
+        for (int i = 0; i < rows * columns; i++) {
+            Neighbour currNeighbours = adjacencyList[i];
+            Iterator<Edge> iter;
+
+            if (currNeighbours == null)
+                iter = Collections.emptyIterator();
+            else
+                iter = currNeighbours.iterator();
+
+            while(iter.hasNext()) {
+                Edge edge = iter.next();
+                if (edge.getWeight() > max) max = edge.getWeight();
+            }
+        }
+        return max;
+    }
+
+    public double minEdgeValue() {
+        double min = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < rows * columns; i++) {
+            Neighbour currNeighbours = adjacencyList[i];
+            Iterator<Edge> iter;
+
+            if (currNeighbours == null)
+                iter = Collections.emptyIterator();
+            else
+                iter = currNeighbours.iterator();
+
+            while(iter.hasNext()) {
+                Edge edge = iter.next();
+                if (edge.getWeight() < min) min = edge.getWeight();
+            }
+        }
+        return min;
+    }
 }

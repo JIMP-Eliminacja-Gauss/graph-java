@@ -57,7 +57,7 @@ public class Files {
 
         if (rows * columns != 1) {
             for (int i = 0; i < rows * columns; i++) {
-                Iterator<Edge> iterator = Main.getGraph().getNeigboursIterator(i);
+                Iterator<Edge> iterator = Main.getGraph().getNeighboursIterator(i);
                 for (Iterator<Edge> it = iterator; it.hasNext(); ) {
                     Edge edge = it.next();
                     file.write(edge.getIndex() + " :" + edge.getWeight() + "     ");
