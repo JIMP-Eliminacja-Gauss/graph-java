@@ -1,6 +1,7 @@
 package com.company.graphjava.controller;
 
 import com.company.graphjava.MyExceptions;
+import com.company.graphjava.graph.Algorithm;
 import com.company.graphjava.graph.Files;
 import com.company.graphjava.graph.Generator;
 import com.company.graphjava.graph.Graph;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Button;
 
@@ -33,8 +35,28 @@ public class MainWindowController {
     private Button connectivityButton;
     @FXML
     private Canvas canvas;
+    private GUIMonitor gui;
+    private Integer lastVertexClicked;
+    private Integer sourceVertex;
 
-
+    public void onCanvasMouseClicked(MouseEvent event) {
+        if (gui == null)
+            return;
+        Integer vertex = gui.findVertex(event.getX(), event.getY());
+        if (vertex == null)
+            return;
+        if (lastVertexClicked != null && (int)vertex == (int)lastVertexClicked) {
+            sourceVertex = vertex;
+            if (Algorithm.dijkstra((int)sourceVertex) == null)
+                sourceVertex = null;
+        }
+        lastVertexClicked = vertex;
+        if (sourceVertex != null && (int) sourceVertex != (int) lastVertexClicked) {
+            gui.drawShortestPath((int) sourceVertex, (int) lastVertexClicked);
+        }
+        System.out.println();
+        System.out.println("source vertex = " + sourceVertex + "     lastVertexClicked = " + lastVertexClicked);
+    }
     public void onExitButtonClicked() {
         Platform.exit();
     }
@@ -76,6 +98,7 @@ public class MainWindowController {
     }
 
     public void onGenerateButtonClicked() {
+        sourceVertex = null;
         if (Main.getSettings().getRows() == null) {
             showErrorDialog("Graph parameters not specified! Open up settings windows and fill in the blanks.");
             return;
@@ -87,13 +110,8 @@ public class MainWindowController {
         System.out.println("Wygenerowano graf");
 
         GraphicsContext grc = canvas.getGraphicsContext2D();
-        GUIMonitor gui = new GUIMonitor(grc, 600, 600);
+        gui = new GUIMonitor(grc, 600, 600);
         gui.drawGraph();
-
-        //if(Main.getGraph().getRows() * Main.getGraph().getColumns() != 1) {
-
-           // Algorithm.dijkstra(0);
-        //}
     }
 
     public void onConnectivityButtonClicked() {
