@@ -65,7 +65,7 @@
                   <Glow />
                </effect>
             </Button>
-            <Button layoutY="190.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@MainWindowInterface.css" text="CLEAR" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="clearButton" layoutY="190.0" mnemonicParsing="false" onAction="#onClearButtonClicked" prefHeight="40.0" prefWidth="150.0" stylesheets="@MainWindowInterface.css" text="CLEAR" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Black" size="14.0" />
                </font>

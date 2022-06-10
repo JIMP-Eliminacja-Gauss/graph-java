@@ -34,6 +34,8 @@ public class MainWindowController {
     @FXML
     private Button connectivityButton;
     @FXML
+    private Button clearButton;
+    @FXML
     private Canvas canvas;
     private GUIMonitor gui;
     private Integer lastVertexClicked;
@@ -45,7 +47,7 @@ public class MainWindowController {
         Integer vertex = gui.findVertex(event.getX(), event.getY());
         if (vertex == null)
             return;
-        if (lastVertexClicked != null && (int)vertex == (int)lastVertexClicked) {
+        if (lastVertexClicked != null && (int)vertex == (int)lastVertexClicked && sourceVertex == null) {
             sourceVertex = vertex;
             if (Algorithm.dijkstra((int)sourceVertex) == null)
                 sourceVertex = null;
@@ -117,6 +119,11 @@ public class MainWindowController {
     public void onConnectivityButtonClicked() {
       //  Algorithm.bfs(Main.getGraph());
 
+    }
+
+    public void onClearButtonClicked() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     private void showErrorDialog( String text ) {
