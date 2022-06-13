@@ -2,7 +2,12 @@ package com.company.graphjava.graph;
 
 import java.util.Random;
 
-public class Generator {
+public class Generator implements Runnable {
+    private final Graph graph;
+
+    public Generator (Graph graph) {
+        this.graph = graph;
+    }
 
     private static boolean makeConnection(double probability) {
         Random random = new Random();
@@ -37,5 +42,10 @@ public class Generator {
                 }
             }
         }
+    }
+
+    @Override
+    public void run() {
+        generateGridGraph(graph);
     }
 }

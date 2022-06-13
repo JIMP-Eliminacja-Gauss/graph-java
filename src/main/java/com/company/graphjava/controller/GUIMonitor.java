@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 
 
-public class GUIMonitor {
+public class GUIMonitor implements Runnable {
     private final GraphicsContext grc;
     private final int canvasWidth;
     private final int canvasHeight;
@@ -67,7 +67,7 @@ public class GUIMonitor {
                     Edge edge = neighbours.next();
                     if (edge.getIndex() == currVertexIndex + 1)
                         horizontalEdge = edge;
-                    else if (edge.getIndex() == currVertexIndex + columns)
+                    if (edge.getIndex() == currVertexIndex + columns)
                         verticalEdge = edge;
 
                 }
@@ -92,9 +92,9 @@ public class GUIMonitor {
     public Integer findVertex(double x, double y) {
         int column = (int) (x / squareSide);
         int row = (int) (y / squareSide);
-        int vertexIndex = row*(Main.getSettings().getColumns()) + column;
+        int vertexIndex = row*(Main.getGraph().getColumns()) + column;
 
-        if (vertexIndex >= Main.getSettings().getRows() * Main.getSettings().getColumns())
+        if (vertexIndex >= Main.getGraph().getRows() * Main.getGraph().getColumns())
             return null;
 
         double vertexCentreX = column*squareSide + squareSide/2;
@@ -129,7 +129,7 @@ public class GUIMonitor {
             double vertexCentreX = column*squareSide + squareSide/2;
             double vertexCentreY = row*squareSide + squareSide/2;
 
-            grc.setLineWidth(0.4 * squareSide);
+            grc.setLineWidth(0.2 * squareSide);
             grc.setStroke(Color.rgb(1,1,1));
             grc.strokeLine(vertexCentreX, vertexCentreY,
                     previousVertexCentreX, previousVertexCentreY);
@@ -144,8 +144,8 @@ public class GUIMonitor {
 
 
     public void drawGraph() {
-        int rows = Main.getSettings().getRows();
-        int columns = Main.getSettings().getColumns();
+        int rows = Main.getGraph().getRows();
+        int columns = Main.getGraph().getColumns();
 
         int minSquareSide = 3;
         int maxSquareSide = 60;
@@ -185,5 +185,10 @@ public class GUIMonitor {
 
         // rysowanie wierzcholkow
         drawVertices(rows, columns, squareSide, diameter);
+    }
+
+    @Override
+    public void run() {
+        drawGraph();
     }
 }

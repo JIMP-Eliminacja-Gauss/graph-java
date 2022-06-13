@@ -200,5 +200,4 @@ public class SettingsWindowController {
             cancelButton.fire();
     }
 
-
 }
