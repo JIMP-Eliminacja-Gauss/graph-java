@@ -15,19 +15,24 @@ public class Algorithm {
     public static double getShortestPath(int vertexIndex) {
         return shortestPath[vertexIndex];
     }
+    public static int getPreviousVertex(int vertexIndex) {
+        return previousVertex[vertexIndex];
+    }
 
-    public static void dijkstra(int sourceVertex) {
+    public static Integer dijkstra(int sourceVertex) {
         dijkstraInit(sourceVertex);
         PriorityQueue<Neighbour> pQueue = new PriorityQueue<>(new NeighbourComparator());
         Neighbour [] adjacencyList = Main.getGraph().getAdjacencyList();
         int rows = Main.getGraph().getRows();
         int columns = Main.getGraph().getColumns();
         if (rows*columns == 1) {
-            return;
+            return null;
         }
         int [] visited = new int [rows*columns];
 
         visited[sourceVertex] = 1;
+        if(adjacencyList[sourceVertex] == null)
+            return null;
         pQueue.add(adjacencyList[sourceVertex]);
 
         while (!pQueue.isEmpty()) {
@@ -47,7 +52,7 @@ public class Algorithm {
         for (int i = 0; i < rows*columns; i++) {
             System.out.println(i + "  NAJKROTSZA SCIEZKA   " + shortestPath[i] + "\tPOPRZEDNI WIERZCHOLEK   " + previousVertex[i]);
         }
-
+        return 0;
     }
 
     private static void dijkstraInit(int sourceVertex) {
@@ -56,7 +61,7 @@ public class Algorithm {
         previousVertex = new int [rows*columns];
         shortestPath = new double [rows*columns];
         for (int i = 0; i < rows*columns; i++) {
-            previousVertex[i] = 0;
+            previousVertex[i] = sourceVertex;
             shortestPath[i] = Double.POSITIVE_INFINITY;
         }
         shortestPath[sourceVertex] = 0;

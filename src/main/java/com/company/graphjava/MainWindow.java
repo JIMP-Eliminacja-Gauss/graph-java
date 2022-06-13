@@ -25,7 +25,6 @@ public class MainWindow extends Application {
         stage.setResizable(false);
         stage.show();
         mainStage = stage;
-
     }
 
     public Stage getMainStage() {

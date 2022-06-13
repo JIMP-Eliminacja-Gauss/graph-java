@@ -1,6 +1,7 @@
 package com.company.graphjava.controller;
 
 import com.company.graphjava.Main;
+import com.company.graphjava.graph.Algorithm;
 import com.company.graphjava.graph.Edge;
 import com.company.graphjava.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,10 +9,18 @@ import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 
+
+
 public class GUIMonitor {
     private final GraphicsContext grc;
     private final int canvasWidth;
     private final int canvasHeight;
+    private double squareSide;
+    private double diameter;
+
+    public double getSquareSide() { return squareSide; }
+    public double getDiameter() { return diameter; }
+
 
     public GUIMonitor(GraphicsContext grc, int canvasWidth, int canvasHeight) {
         this.grc = grc;
@@ -80,6 +89,60 @@ public class GUIMonitor {
         }
     }
 
+    public Integer findVertex(double x, double y) {
+        int column = (int) (x / squareSide);
+        int row = (int) (y / squareSide);
+        int vertexIndex = row*(Main.getSettings().getColumns()) + column;
+
+        if (vertexIndex >= Main.getSettings().getRows() * Main.getSettings().getColumns())
+            return null;
+
+        double vertexCentreX = column*squareSide + squareSide/2;
+        double vertexCentreY = row*squareSide + squareSide/2;
+        double distanceFromVertexCentre = Math.sqrt( (vertexCentreX - x)*(vertexCentreX - x) + (vertexCentreY - y)*(vertexCentreY - y) );
+
+        if (distanceFromVertexCentre <= diameter/2){
+            System.out.println();
+            System.out.println("column = " + column + "   row =  " + row + "     czyli wierzcholek o indeksie: " + vertexIndex);
+            return vertexIndex;
+        }
+
+        return null;
+    }
+
+    public void drawShortestPath (int sourceVertex, int vertex) {
+        if (Algorithm.getShortestPath(vertex) == Double.POSITIVE_INFINITY)
+            return;
+
+        int columns = Main.getGraph().getColumns();
+        int rows = Main.getGraph().getRows();
+
+        while(true){
+            int previousVertex = Algorithm.getPreviousVertex(vertex);
+            int row = (int) previousVertex/columns;
+            int column = previousVertex - row*columns;
+            double previousVertexCentreX = column*squareSide + squareSide/2;
+            double previousVertexCentreY = row*squareSide + squareSide/2;
+
+            row = (int) vertex/columns;
+            column = vertex - row*columns;
+            double vertexCentreX = column*squareSide + squareSide/2;
+            double vertexCentreY = row*squareSide + squareSide/2;
+
+            grc.setLineWidth(0.4 * squareSide);
+            grc.setStroke(Color.rgb(1,1,1));
+            grc.strokeLine(vertexCentreX, vertexCentreY,
+                    previousVertexCentreX, previousVertexCentreY);
+
+            vertex = previousVertex;
+            if(previousVertex == sourceVertex)
+                break;
+        }
+
+    }
+
+
+
     public void drawGraph() {
         int rows = Main.getSettings().getRows();
         int columns = Main.getSettings().getColumns();
@@ -87,8 +150,8 @@ public class GUIMonitor {
         int minSquareSide = 3;
         int maxSquareSide = 60;
 
-        double squareSide;
-        double diameter;
+        //double squareSide;
+        //double diameter;
 
         /*
         Dzielimy plotno do rysowania na kwadraty i w kazdym srodku kradratu rysujemy kolo

@@ -83,8 +83,8 @@
             </Button>
          </children>
       </AnchorPane>
-      <Canvas fx:id="canvas" height="600.0" width="600.0" />
-      <Separator layoutY="600.0" prefWidth="750.0" />
+      <Canvas fx:id="canvas" height="600.0" onMouseClicked="#onCanvasMouseClicked" width="600.0" />
+      <Separator layoutY="601.0" prefWidth="750.0" />
       <Separator layoutX="600.0" orientation="VERTICAL" prefHeight="630.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="20.0" layoutX="610.0" layoutY="605.0" rotate="180.0" stroke="WHITE" strokeType="INSIDE" width="130.0">
          <fill>
