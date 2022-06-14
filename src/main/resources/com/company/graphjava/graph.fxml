@@ -116,5 +116,10 @@
       </Rectangle>
       <Text fill="WHITE" layoutX="611.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MIN" wrappingWidth="25.59375" />
       <Text fill="WHITE" layoutX="710.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAX" wrappingWidth="39.59375" />
+      <Text fx:id="messagePanel" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" visible="false" wrappingWidth="600.0">
+         <font>
+            <Font name="Calibri" size="16.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
