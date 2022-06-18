@@ -7,6 +7,7 @@ import com.company.graphjava.graph.Generator;
 import com.company.graphjava.graph.Graph;
 import com.company.graphjava.Main;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -119,15 +120,22 @@ public class MainWindowController {
 
         if (thrownException)
             showErrorMessage("Cannot load graph from file");
-        else
+        else {
+            GraphicsContext grc = canvas.getGraphicsContext2D();
+            if (gui == null)
+                gui = new GUIMonitor(grc, 600, 600);
+
+            Thread t1 = new Thread(gui::drawGraph);
+            t1.start();
             showSuccessMessage("Graph has been successfully loaded. Choose the source vertex by double clicking on it");
+        }
 
-        GraphicsContext grc = canvas.getGraphicsContext2D();
-        if (gui == null)
-            gui = new GUIMonitor(grc, 600, 600);
 
-        Thread t1 = new Thread(gui);
-        t1.start();
+
+
+
+
+
 
 
 
@@ -143,40 +151,72 @@ public class MainWindowController {
 
         Graph graph = new Graph();
         Thread t1 = new Thread(new Generator(graph));
-        t1.start();
+        synchronized (graph) {
+            t1.start();
+        }
+
         Main.setGraph(graph);
         System.out.println("Wygenerowano graf");
-        t1.join();
+
 
         GraphicsContext grc = canvas.getGraphicsContext2D();
         if (gui == null)
             gui = new GUIMonitor(grc, 600, 600);
 
         // draws Graph
-        Thread t2 = new Thread(gui);
+        Thread t2 = new Thread(gui::drawGraph);
+
+
+        t1.join();
         t2.start();
 
         int col = Main.getGraph().getColumns();
         int row = Main.getGraph().getRows();
-        showSuccessMessage(row + " x " + col + " graph has been generated. Choose the source vertex by double clicking on it");
+
+        Thread t3 = new Thread( () -> {
+            showSuccessMessage(row + " x " + col + " graph has been successfully generated");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ignored) {
+
+            }
+            if (messagePanel.getText().equals(row + " x " + col + " graph has been successfully generated"))
+                showSuccessMessage("Choose the source vertex by double clicking on it");
+
+        });
+        t2.join();
+        t3.start();
     }
 
     public void onConnectivityButtonClicked() {
-      boolean connected =  Algorithm.bfs(Main.getGraph());
-      if (connected) {
-          showSuccessMessage("Graph is connected");
-      } else
-          showErrorMessage("Graph is not connected");
+        if (Main.getGraph() == null)
+            throw new NullPointerException("Graph is null");
 
-
+        boolean connected =  Algorithm.bfs(Main.getGraph());
+        if (connected) {
+            showSuccessMessage("Graph is connected");
+        } else
+            showErrorMessage("Graph is not connected");
     }
 
-    public void onClearButtonClicked() throws InterruptedException {
-        Thread thread = new Thread(gui);
-        thread.start();
-        thread.join();
+    public void onClearButtonClicked() {
+        Thread t1 = new Thread(gui::drawGraph);
+        t1.start();
         sourceVertex = null;
-        showSuccessMessage("Graph has been successfully cleared. Choose the source vertex by double clicking on it");
+
+        Thread msg = new Thread( () -> {
+            showSuccessMessage("Graph has been successfully cleared.");
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ignored) {
+
+            }
+            if (messagePanel.getText().equals("Graph has been successfully cleared."))
+                showSuccessMessage("Choose the source vertex by double clicking on it");
+        });
+        msg.start();
+
     }
 
     private void showErrorDialog( String text ) {
@@ -188,13 +228,13 @@ public class MainWindowController {
         alert.showAndWait();
     }
 
-    private void showSuccessMessage(String s) {
+    private synchronized void showSuccessMessage(String s) {
         messagePanel.setText(s);
         messagePanel.setFill(Color.GREEN);
         messagePanel.setVisible(true);
     }
 
-    private void showErrorMessage(String s) {
+    private synchronized void showErrorMessage(String s) {
         messagePanel.setText(s);
         messagePanel.setFill(Color.RED);
         messagePanel.setVisible(true);

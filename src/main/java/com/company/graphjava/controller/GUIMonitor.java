@@ -4,6 +4,7 @@ import com.company.graphjava.Main;
 import com.company.graphjava.graph.Algorithm;
 import com.company.graphjava.graph.Edge;
 import com.company.graphjava.graph.Graph;
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -11,7 +12,7 @@ import java.util.Iterator;
 
 
 
-public class GUIMonitor implements Runnable {
+public class GUIMonitor {
     private final GraphicsContext grc;
     private final int canvasWidth;
     private final int canvasHeight;
@@ -47,12 +48,12 @@ public class GUIMonitor implements Runnable {
         double maxEdgeValue;
         double minEdgeValue;
 
-        if (Main.getSettings().getEdgeWeightRangeFrom() == null) {
-            minEdgeValue = Main.getGraph().getFromX();
-            maxEdgeValue = Main.getGraph().getToY();
-        } else {
+        if (Main.getGraph().isFromFile()) {
             minEdgeValue = Main.getGraph().minEdgeValue();
             maxEdgeValue = Main.getGraph().maxEdgeValue();
+        } else {
+            minEdgeValue = Main.getGraph().getFromX();
+            maxEdgeValue = Main.getGraph().getToY();
         }
 
 
@@ -143,7 +144,7 @@ public class GUIMonitor implements Runnable {
 
 
 
-    public void drawGraph() {
+    public synchronized void drawGraph() {
         int rows = Main.getGraph().getRows();
         int columns = Main.getGraph().getColumns();
 
@@ -172,23 +173,23 @@ public class GUIMonitor implements Runnable {
         diameter = (int) (0.75 * squareSide);
 
         // tlo
-        //grc.setFill(Color.CORNSILK);
-        grc.setFill(Color.NAVY);
-        grc.fillRect(0, 0, canvasWidth, canvasHeight);
+        Platform.runLater(() -> {
+            grc.setFill(Color.NAVY);
+            grc.fillRect(0, 0, canvasWidth, canvasHeight);
+        });
+
+
+
         System.out.println("Squareside = " + squareSide);
         System.out.println("Max = " + Main.getGraph().maxEdgeValue());
         System.out.println("Min = " + Main.getGraph().minEdgeValue());
-        System.out.printf("wiersze = %d, kolumny = %d", Main.getGraph().getRows(), Main.getGraph().getColumns());
+        System.out.printf("wiersze = %d, kolumny = %d\n", Main.getGraph().getRows(), Main.getGraph().getColumns());
 
         // krawedzie
-        drawEdges(rows, columns, squareSide);
+        Platform.runLater(() -> drawEdges(rows, columns, squareSide));
 
         // rysowanie wierzcholkow
-        drawVertices(rows, columns, squareSide, diameter);
-    }
-
-    @Override
-    public void run() {
-        drawGraph();
+        Platform.runLater(() -> drawVertices(rows, columns, squareSide, diameter));
+        System.out.println("DONE");
     }
 }
