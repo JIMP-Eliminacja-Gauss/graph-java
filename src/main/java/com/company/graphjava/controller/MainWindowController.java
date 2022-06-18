@@ -98,6 +98,7 @@ public class MainWindowController {
     }
 
     public void onLoadButtonClicked() {
+        sourceVertex = null;
         boolean thrownException = false;
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load a graph from file");
