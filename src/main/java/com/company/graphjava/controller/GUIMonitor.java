@@ -102,8 +102,6 @@ public class GUIMonitor implements Runnable {
         double distanceFromVertexCentre = Math.sqrt( (vertexCentreX - x)*(vertexCentreX - x) + (vertexCentreY - y)*(vertexCentreY - y) );
 
         if (distanceFromVertexCentre <= diameter/2){
-            System.out.println();
-            System.out.println("column = " + column + "   row =  " + row + "     czyli wierzcholek o indeksie: " + vertexIndex);
             return vertexIndex;
         }
 
@@ -175,10 +173,6 @@ public class GUIMonitor implements Runnable {
         //grc.setFill(Color.CORNSILK);
         grc.setFill(Color.NAVY);
         grc.fillRect(0, 0, canvasWidth, canvasHeight);
-        System.out.println("Squareside = " + squareSide);
-        System.out.println("Max = " + Main.getGraph().maxEdgeValue());
-        System.out.println("Min = " + Main.getGraph().minEdgeValue());
-        System.out.printf("wiersze = %d, kolumny = %d", Main.getGraph().getRows(), Main.getGraph().getColumns());
 
         // krawedzie
         drawEdges(rows, columns, squareSide);

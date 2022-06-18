@@ -15,7 +15,7 @@ public class Edge {
     }
 
     public Edge(Graph graph, int index, double weight) {
-        if (index < 0 || index >= graph.getRows() * graph.getColumns() /*|| weight < 0*/)
+        if (index < 0 || index >= graph.getRows() * graph.getColumns())
             throw new IllegalArgumentException();
         this.index = index;
         this.weight = weight;

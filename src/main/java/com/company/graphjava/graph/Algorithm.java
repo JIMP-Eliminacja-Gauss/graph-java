@@ -51,11 +51,6 @@ public class Algorithm {
                 relax(vertex.getVertexIndex(), edgeVertexIndex, edge.getWeight());
             }
         }
-/*
-        for (int i = 0; i < rows*columns; i++) {
-            System.out.println(i + "  NAJKROTSZA SCIEZKA   " + shortestPath[i] + "\tPOPRZEDNI WIERZCHOLEK   " + previousVertex[i]);
-        }
-        */
         return 0;
     }
 
