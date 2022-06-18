@@ -41,6 +41,9 @@ public class Algorithm {
             while(neighbours.hasNext()) {
                 Edge edge = neighbours.next();
                 int edgeVertexIndex = edge.getIndex();
+                double edgeWeight = edge.getWeight();
+                if (edgeWeight < 0)
+                    return 1;
                 if (visited[edgeVertexIndex] != 1) {
                     pQueue.add(adjacencyList[edgeVertexIndex]);
                     visited[edgeVertexIndex] = 1;
@@ -48,10 +51,11 @@ public class Algorithm {
                 relax(vertex.getVertexIndex(), edgeVertexIndex, edge.getWeight());
             }
         }
-
+/*
         for (int i = 0; i < rows*columns; i++) {
             System.out.println(i + "  NAJKROTSZA SCIEZKA   " + shortestPath[i] + "\tPOPRZEDNI WIERZCHOLEK   " + previousVertex[i]);
         }
+        */
         return 0;
     }
 

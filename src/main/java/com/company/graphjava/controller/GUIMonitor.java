@@ -119,12 +119,12 @@ public class GUIMonitor implements Runnable {
 
         while(true){
             int previousVertex = Algorithm.getPreviousVertex(vertex);
-            int row = (int) previousVertex/columns;
+            int row =  previousVertex/columns;
             int column = previousVertex - row*columns;
             double previousVertexCentreX = column*squareSide + squareSide/2;
             double previousVertexCentreY = row*squareSide + squareSide/2;
 
-            row = (int) vertex/columns;
+            row = vertex/columns;
             column = vertex - row*columns;
             double vertexCentreX = column*squareSide + squareSide/2;
             double vertexCentreY = row*squareSide + squareSide/2;
