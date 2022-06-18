@@ -35,7 +35,7 @@ class FilesTest {
     }
 
     @Test
-    void fileRead() throws IOException, MyExceptions.FileFormatException {
+    void fileRead_TestFile() throws IOException, MyExceptions.FileFormatException {
         Files.fileRead("src/main/resources/com/company/graphjava/textfiles/plikDoTestu.txt");
         Graph graph = Main.getGraph();
         assertEquals(3, graph.getColumns());

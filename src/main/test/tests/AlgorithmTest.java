@@ -12,7 +12,7 @@ public class AlgorithmTest {
 
 
     @Test
-    void dijkstra() throws IOException, MyExceptions.FileFormatException {
+    void dijkstra_ConnectedGraph() throws IOException, MyExceptions.FileFormatException {
         Files.fileRead("src/main/resources/com/company/graphjava/textfiles/plikDoTestu.txt");
         Algorithm.dijkstra(0);
         Assertions.assertEquals(3, Algorithm.getShortestPath(5));
@@ -20,7 +20,7 @@ public class AlgorithmTest {
     }
 
     @Test
-    void dijkstra_NotConnectivityGraph() throws IOException, MyExceptions.FileFormatException {
+    void dijkstra_NotConnectedGraph() throws IOException, MyExceptions.FileFormatException {
         Files.fileRead("src/main/resources/com/company/graphjava/textfiles/plikDoTestuNiespojny.txt");
         Algorithm.dijkstra(0);
         Assertions.assertEquals(Double.POSITIVE_INFINITY, Algorithm.getShortestPath(2));

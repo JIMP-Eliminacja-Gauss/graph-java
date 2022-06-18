@@ -41,7 +41,6 @@ public class Files {
                 }
                 Main.getGraph().addToAdjacencyList(currentVertexIndex, new Edge(Main.getGraph(), edgeVertexIndex, edgeWeight));
             }
-            //System.out.println(line);
             currentVertexIndex++;
 
         }
