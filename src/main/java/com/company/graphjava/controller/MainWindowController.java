@@ -68,8 +68,6 @@ public class MainWindowController {
         if (sourceVertex != null &&  sourceVertex != (int) lastVertexClicked) {
             gui.drawShortestPath(sourceVertex,  lastVertexClicked);
         }
-        System.out.println();
-        System.out.println("source vertex = " + sourceVertex + "     lastVertexClicked = " + lastVertexClicked);
 
     }
     public void onExitButtonClicked() {
