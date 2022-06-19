@@ -12,6 +12,7 @@ public class Graph {
     private double toY;
     private double probability;
     private final Neighbour[] adjacencyList;
+    private final boolean fromFile;
 
     public Graph() {
         if (Main.getSettings().getRows() < 0 && Main.getSettings().getColumns() < 0)
@@ -30,6 +31,7 @@ public class Graph {
         this.toY = Main.getSettings().getEdgeWeightRangeTo();
         this.probability = Main.getSettings().getProbability();
         adjacencyList = new Neighbour[this.rows * this.columns];
+        fromFile = false;
     }
 
     public Graph(int rows, int columns) {
@@ -39,6 +41,7 @@ public class Graph {
         this.rows = rows;
         this.columns = columns;
         adjacencyList = new Neighbour[rows * columns];
+        fromFile = true;
     }
 
     public Graph(int rows, int columns, double fromX, double toY, double probability) {
@@ -51,6 +54,7 @@ public class Graph {
         this.toY = toY;
         this.probability = probability;
         adjacencyList = new Neighbour[rows * columns];
+        fromFile = false;
     }
 
     public int getRows() {
@@ -67,6 +71,10 @@ public class Graph {
 
     public double getToY() {
         return toY;
+    }
+
+    public boolean isFromFile() {
+        return fromFile;
     }
 
     public double getProbability() {
