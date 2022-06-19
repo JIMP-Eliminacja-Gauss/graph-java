@@ -52,18 +52,22 @@ public class MainWindowController {
         Integer vertex = gui.findVertex(event.getX(), event.getY());
         if (vertex == null)
             return;
-        if (lastVertexClicked != null && (int)vertex == (int)lastVertexClicked && sourceVertex == null) {
+        if (lastVertexClicked != null && vertex == (int)lastVertexClicked && sourceVertex == null) {
             sourceVertex = vertex;
             showSuccessMessage("Chose vertex #" + sourceVertex + " as source vertex");
-            if (Algorithm.dijkstra((int)sourceVertex) == null)
+            Integer message = Algorithm.dijkstra(sourceVertex);
+            if (message == null) {
                 sourceVertex = null;
+            }
+            else if (message == 1) {
+                showErrorMessage("Dijkstra stopped - edge weight less than 0");
+                sourceVertex = null;
+            }
         }
         lastVertexClicked = vertex;
-        if (sourceVertex != null && (int) sourceVertex != (int) lastVertexClicked) {
-            gui.drawShortestPath((int) sourceVertex, (int) lastVertexClicked);
+        if (sourceVertex != null &&  sourceVertex != (int) lastVertexClicked) {
+            gui.drawShortestPath(sourceVertex,  lastVertexClicked);
         }
-        System.out.println();
-        System.out.println("source vertex = " + sourceVertex + "     lastVertexClicked = " + lastVertexClicked);
 
     }
     public void onExitButtonClicked() {
@@ -98,6 +102,7 @@ public class MainWindowController {
     }
 
     public void onLoadButtonClicked() {
+        sourceVertex = null;
         boolean thrownException = false;
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load a graph from file");
