@@ -103,8 +103,6 @@ public class GUIMonitor {
         double distanceFromVertexCentre = Math.sqrt( (vertexCentreX - x)*(vertexCentreX - x) + (vertexCentreY - y)*(vertexCentreY - y) );
 
         if (distanceFromVertexCentre <= diameter/2){
-            System.out.println();
-            System.out.println("column = " + column + "   row =  " + row + "     czyli wierzcholek o indeksie: " + vertexIndex);
             return vertexIndex;
         }
 
@@ -120,12 +118,12 @@ public class GUIMonitor {
 
         while(true){
             int previousVertex = Algorithm.getPreviousVertex(vertex);
-            int row = (int) previousVertex/columns;
+            int row =  previousVertex/columns;
             int column = previousVertex - row*columns;
             double previousVertexCentreX = column*squareSide + squareSide/2;
             double previousVertexCentreY = row*squareSide + squareSide/2;
 
-            row = (int) vertex/columns;
+            row = vertex/columns;
             column = vertex - row*columns;
             double vertexCentreX = column*squareSide + squareSide/2;
             double vertexCentreY = row*squareSide + squareSide/2;
@@ -173,17 +171,13 @@ public class GUIMonitor {
         diameter = (int) (0.75 * squareSide);
 
         // tlo
+
         Platform.runLater(() -> {
             grc.setFill(Color.NAVY);
             grc.fillRect(0, 0, canvasWidth, canvasHeight);
         });
 
 
-
-        System.out.println("Squareside = " + squareSide);
-        System.out.println("Max = " + Main.getGraph().maxEdgeValue());
-        System.out.println("Min = " + Main.getGraph().minEdgeValue());
-        System.out.printf("wiersze = %d, kolumny = %d\n", Main.getGraph().getRows(), Main.getGraph().getColumns());
 
         // krawedzie
         Platform.runLater(() -> drawEdges(rows, columns, squareSide));
